@@ -1,0 +1,70 @@
+{% extends 'healthcareapp/base.html' %}
+
+{% block content %}
+<style>
+    .dashboard-container {
+        max-width: 600px;
+        background-color: #ffffff;
+        margin: 40px auto;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    .profile-picture {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #4CAF50;
+        margin-bottom: 20px;
+    }
+    h2 {
+        color: #333333;
+        margin-bottom: 20px;
+    }
+    p {
+        font-size: 16px;
+        color: #555555;
+        margin: 10px 0;
+    }
+    .home-button {
+        margin-top: 20px;
+    }
+    .home-button a, .logout-button a {
+        text-decoration: none;
+        padding: 12px 24px;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        display: inline-block;
+        margin: 10px 5px;
+    }
+    .logout-button a {
+        background-color: #f44336;
+    }
+    .logout-button a:hover {
+        background-color: #d32f2f;
+    }
+    .home-button a:hover {
+        background-color: #388e3c;
+    }
+</style>
+
+<div class="dashboard-container">
+    <img src="{{ request.user.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+    <h2>Doctor Dashboard</h2>
+    <p><strong>Name:</strong> Dr. {{ request.user.first_name }} {{ request.user.last_name }}</p>
+    <p><strong>Email:</strong> {{ request.user.email }}</p>
+    <p><strong>Address:</strong> {{ request.user.address_line1 }}, {{ request.user.city }}, {{ request.user.state }} - {{ request.user.pincode }}</p>
+
+    <div class="home-button">
+        <a href="{% url 'home' %}">Go to Homepage</a>
+    </div>
+    <div class="logout-button">
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+{% endblock %}

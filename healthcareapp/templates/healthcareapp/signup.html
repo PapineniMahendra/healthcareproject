@@ -1,0 +1,36 @@
+{% extends 'healthcareapp/base.html' %}
+
+{% block content %}
+<h2 style="text-align: center;">Signup</h2>
+
+<form method="POST" enctype="multipart/form-data" style="max-width: 600px; margin: 0 auto;">
+    {% csrf_token %}
+    <table style="width: 100%; border-collapse: separate; border-spacing: 10px;">
+        {% for field in form %}
+            <tr>
+                <td style="text-align: left; vertical-align: top; font-weight: bold;">
+                    {{ field.label_tag }}
+                </td>
+                <td>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small style="color: #777;">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div style="color: red;">{{ error }}</div>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div style="text-align: center; margin-top: 20px;">
+        <button type="submit" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px;">
+            Register
+        </button>
+        <br><br>
+        <a href="{% url 'login' %}" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; text-decoration: none;">
+            Login
+        </a>
+    </div>
+</form>
+{% endblock %}

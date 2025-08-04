@@ -1,0 +1,73 @@
+{% extends 'healthcareapp/base.html' %}
+
+{% block title %}Login | ATG Healthcare{% endblock %}
+
+{% block content %}
+<style>
+    .login-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .login-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    .login-container label {
+        font-weight: bold;
+    }
+    .login-container input {
+        width: 100%;
+        padding: 8px;
+        margin: 6px 0 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .login-container button, .register-button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+        text-align: center;
+        display: inline-block;
+        text-decoration: none;
+    }
+    .login-container button:hover,
+    .register-button:hover {
+        background-color: #388e3c;
+    }
+    .error-message {
+        text-align: center;
+        color: red;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Username:</label>
+        <input type="text" name="username" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <a href="{% url 'signup' %}" class="register-button">Register</a>
+
+    {% if error %}
+        <p class="error-message">{{ error }}</p>
+    {% endif %}
+</div>
+{% endblock %}

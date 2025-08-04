@@ -1,0 +1,43 @@
+{% extends 'healthcareapp/base.html' %}
+
+{% block title %}Home | ATG Healthcare{% endblock %}
+
+{% block content %}
+<style>
+    .home-container {
+        text-align: center;
+        margin-top: 50px;
+    }
+    .action-buttons {
+        margin-top: 30px;
+    }
+    .action-buttons a {
+        display: inline-block;
+        margin: 0 10px;
+        padding: 12px 24px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+    .action-buttons a:hover {
+        background-color: #388e3c;
+    }
+</style>
+
+<div class="home-container">
+    <h2>Welcome to ATG Healthcare</h2>
+    <p>This is the home page.</p>
+
+    <div class="action-buttons">
+        <a href="{% url 'signup' %}">Signup</a>
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+</div>
+{% endblock %}
+
+<!--<h1>Welcome to ATG Healthcare Portal</h1>-->
+<!--<a href="{% url 'signup' %}">Signup</a>-->
+<!--<a href="{% url 'login' %}">Login</a>-->
