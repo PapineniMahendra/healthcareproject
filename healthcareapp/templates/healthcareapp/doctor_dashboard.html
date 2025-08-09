@@ -28,28 +28,42 @@
         color: #555555;
         margin: 10px 0;
     }
-    .home-button {
+    .button-group {
         margin-top: 20px;
     }
-    .home-button a, .logout-button a {
+    .button-group a {
         text-decoration: none;
         padding: 12px 24px;
-        background-color: #4CAF50;
-        color: white;
         border-radius: 8px;
         font-weight: bold;
         transition: background-color 0.3s ease;
         display: inline-block;
         margin: 10px 5px;
+        color: white;
     }
-    .logout-button a {
+    .home-button {
+        background-color: #4CAF50;
+    }
+    .home-button:hover {
+        background-color: #388e3c;
+    }
+    .logout-button {
         background-color: #f44336;
     }
-    .logout-button a:hover {
+    .logout-button:hover {
         background-color: #d32f2f;
     }
-    .home-button a:hover {
-        background-color: #388e3c;
+    .create-blog-button {
+        background-color: #2196F3;
+    }
+    .create-blog-button:hover {
+        background-color: #1976D2;
+    }
+    .my-blogs-button {
+        background-color: #9C27B0;
+    }
+    .my-blogs-button:hover {
+        background-color: #7B1FA2;
     }
 </style>
 
@@ -60,11 +74,11 @@
     <p><strong>Email:</strong> {{ request.user.email }}</p>
     <p><strong>Address:</strong> {{ request.user.address_line1 }}, {{ request.user.city }}, {{ request.user.state }} - {{ request.user.pincode }}</p>
 
-    <div class="home-button">
-        <a href="{% url 'home' %}">Go to Homepage</a>
-    </div>
-    <div class="logout-button">
-        <a href="{% url 'logout' %}">Logout</a>
+    <div class="button-group">
+        <a href="{% url 'home' %}" class="home-button">Go to Homepage</a>
+        <a href="{% url 'blog_create' %}" class="create-blog-button">Create Blog</a>
+        <a href="{% url 'my_blogs' %}" class="my-blogs-button">My Blogs</a>
+        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
     </div>
 </div>
 {% endblock %}

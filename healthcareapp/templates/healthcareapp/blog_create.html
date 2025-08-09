@@ -1,0 +1,122 @@
+{% extends 'healthcareapp/base.html' %}
+{% block content %}
+
+<style>
+    .create-blog-container {
+        max-width: 700px;
+        margin: 30px auto;
+        background: linear-gradient(135deg, #f4faff, #e9f3ff);
+        padding: 25px 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        border: 1px solid #d6e6f5;
+    }
+
+    .create-blog-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #2c3e50;
+        font-size: 26px;
+        font-weight: bold;
+    }
+
+    .create-blog-container label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        display: block;
+        color: #34495e;
+    }
+
+    .create-blog-container input[type="text"],
+    .create-blog-container textarea,
+    .create-blog-container select,
+    .create-blog-container input[type="file"] {
+        width: 100%;
+        padding: 10px 12px;
+        margin-bottom: 18px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+        transition: 0.2s;
+        background-color: #ffffff;
+    }
+
+    .create-blog-container input:focus,
+    .create-blog-container textarea:focus,
+    .create-blog-container select:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+    }
+
+    .create-blog-container textarea {
+        resize: vertical;
+    }
+
+    .draft-checkbox {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+
+    .draft-checkbox input {
+        margin-right: 8px;
+    }
+
+    .btn-submit {
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        padding: 12px 18px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        font-weight: bold;
+        transition: background 0.3s ease;
+    }
+
+    .btn-submit:hover {
+        background-color: #1e8449;
+    }
+</style>
+
+<div class="create-blog-container">
+    <h2>✍ Create New Blog Post</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Title:</label>
+        <input type="text" name="title" required value="{{ request.POST.title|default_if_none:'' }}">
+
+        <label>Summary (short):</label>
+        <textarea name="summary" rows="3" maxlength="800" placeholder="Short summary (will be truncated to 15 words for list)"></textarea>
+
+        <label>Category:</label>
+        <select name="category" required>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% empty %}
+                <option disabled>No categories available</option>
+            {% endfor %}
+        </select>
+
+        <label>Content:</label>
+        <textarea name="content" rows="8" required></textarea>
+
+        <label>Image:</label>
+        <input type="file" name="image">
+
+        <div class="draft-checkbox">
+            <input type="checkbox" name="is_draft" value="on">
+            <span>Save as Draft</span>
+        </div>
+
+        <button type="submit" class="btn-submit">Publish</button>
+    </form>
+</div>
+
+{% endblock %}

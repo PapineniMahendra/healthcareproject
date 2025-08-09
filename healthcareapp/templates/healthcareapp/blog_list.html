@@ -1,0 +1,37 @@
+{% extends 'healthcareapp/base.html' %}
+{% block content %}
+<h2>📝 Blog Posts</h2>
+
+<div>
+    {% if request.user.user_type == 'doctor' %}
+        <a href="{% url 'blog_create' %}" class="btn btn-primary">+ Create New Blog</a>
+    {% endif %}
+</div>
+
+<hr>
+
+{% for category, posts in category_posts %}
+    <section style="margin-bottom:24px;">
+        <h3>{{ category.name }}</h3>
+        {% if posts %}
+            {% for blog in posts %}
+                <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                    <h3><a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a></h3>
+                    <p><b>Author:</b> {{ blog.author.username }}</p>
+
+                    {% if blog.image %}
+                        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" style="width:200px;">
+                    {% endif %}
+
+                    <!-- Show summary if available, else content, truncated to 15 words -->
+                    <p>{{ blog.summary|default:blog.content|truncatewords:15 }}</p>
+
+                    <small>Posted on {{ blog.created_at|date:"M d, Y" }}</small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p><em>No posts in this category yet.</em></p>
+        {% endif %}
+    </section>
+{% endfor %}
+{% endblock %}
